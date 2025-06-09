@@ -11,7 +11,6 @@ class Game:
 
         #groups
         self.all_sprites = pygame.sprite.Group()
-        self.player_tiles = pygame.sprite.Groups()
 
         #player
         self.player = Player()
