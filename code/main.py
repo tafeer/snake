@@ -1,10 +1,11 @@
 from settings import *
+from player import Player
 
 class Game:
     def __init__(self):
         #setup
         pygame.init()
-        self.display_surface = pygame.display.set_mode(WINDOW_WIDTH, WINDOW_HEIGHT)
+        self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Snake")
         self.clock = pygame.time.Clock()
         self.running = True
@@ -13,7 +14,7 @@ class Game:
         self.all_sprites = pygame.sprite.Group()
 
         #player
-        self.player = Player()
+        self.player = Player(self.display_surface)
 
     def run(self):
         while self.running:
@@ -23,3 +24,12 @@ class Game:
                     self.running = False
 
             self.display_surface.fill("Black")
+            self.player.update(dt)
+
+            pygame.display.update()
+
+        pygame.quit()
+
+if __name__ == "__main__":
+    game = Game()
+    game.run()
