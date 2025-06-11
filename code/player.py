@@ -3,8 +3,9 @@ from settings import *
 class Player():
     def __init__(self, display_surface):
         self.display_surface = display_surface
-        self.head = [14 * BLOCK_SIZE, 14 * BLOCK_SIZE]
-        self.tail = [13 * BLOCK_SIZE, 14 * BLOCK_SIZE]
+        self.body_parts = []
+        self.body_parts.append([14 * BLOCK_SIZE, 14 * BLOCK_SIZE])
+        self.body_parts.append([13 * BLOCK_SIZE, 14 * BLOCK_SIZE])
         self.move_count = 1
         self.direction = "right"
 
@@ -20,22 +21,20 @@ class Player():
             self.direction = "down"
         current_time = pygame.time.get_ticks()
         if current_time // MOVE_TIME >= self.move_count:
+            for i in range(len(self.body_parts) - 1, 0, -1):
+                print(i)
+                self.body_parts[i] = self.body_parts[i - 1].copy()
             if self.direction == "right":
-                self.tail = self.head
-                self.head[0] += BLOCK_SIZE
+                self.body_parts[0][0] += BLOCK_SIZE
             if self.direction == "left":
-                self.tail = self.head
-                self.head[0] -= BLOCK_SIZE
+                self.body_parts[0][0] -= BLOCK_SIZE
             if self.direction == "up":
-                self.tail = self.head
-                self.head[1] -= BLOCK_SIZE
+                self.body_parts[0][1] -= BLOCK_SIZE
             if self.direction == "down":
-                self.tail = self.head
-                self.head[1] += BLOCK_SIZE
+                self.body_parts[0][1] += BLOCK_SIZE
             self.move_count += 1
             
     def update(self,dt):
         self.move(dt)
-        pygame.draw.rect(self.display_surface, PLAYER_COLOUR, ((self.tail), (BLOCK_SIZE, BLOCK_SIZE)))
-        pygame.draw.rect(self.display_surface, PLAYER_COLOUR, ((self.head), (BLOCK_SIZE, BLOCK_SIZE)))
-
+        for i in range(len(self.body_parts)):
+            pygame.draw.rect(self.display_surface, PLAYER_COLOUR, (self.body_parts[i], (BLOCK_SIZE, BLOCK_SIZE)))
