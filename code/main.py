@@ -1,5 +1,6 @@
 from settings import *
 from player import Player
+from apple import Apple
 
 class Game:
     def __init__(self):
@@ -10,8 +11,11 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
 
+        #apple
+        self.apple = Apple(self.display_surface)
+
         #player
-        self.player = Player(self.display_surface)
+        self.player = Player(self.display_surface, self.apple)
 
     def run(self):
         while self.running:
@@ -21,7 +25,8 @@ class Game:
                     self.running = False
 
             self.display_surface.fill("Black")
-            self.player.update(dt)
+            self.apple.draw()
+            self.player.update()
 
             pygame.display.update()
 
