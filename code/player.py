@@ -50,7 +50,6 @@ class Player():
                     self.body_parts[0][1] = 0
             self.move_count += 1
             self.has_moved = True
-            print(self.apple_pos, self.body_parts[0])
             if self.body_parts[0] == self.apple_pos:
                 self.apple_pos = self.apple.spawn(self.body_parts)
                 self.body_parts.append(self.body_parts[len(self.body_parts) - 1])
