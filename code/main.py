@@ -17,6 +17,8 @@ class Game:
         #player
         self.player = Player(self.display_surface, self.apple)
 
+        #text
+
     def run(self):
         while self.running:
             dt = self.clock.tick() / 1000
@@ -29,6 +31,10 @@ class Game:
             self.player.update()
 
             pygame.display.update()
+            if self.player.collide():
+                self.running = False
+
+
 
         pygame.quit()
 

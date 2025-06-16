@@ -53,9 +53,15 @@ class Player():
             if self.body_parts[0] == self.apple_pos:
                 self.apple_pos = self.apple.spawn(self.body_parts)
                 self.body_parts.append(self.body_parts[len(self.body_parts) - 1])
+
+    def collide(self):
+        for i in range(1, len(self.body_parts)):
+            if self.body_parts[0] == self.body_parts[i]:
+                return True
+        return False
+
             
     def update(self):
         self.move()
         for i in range(len(self.body_parts)):
-            rectt = pygame.rect.Rect((self.body_parts[i], (BLOCK_SIZE, BLOCK_SIZE)))
-            pygame.draw.rect(self.display_surface, PLAYER_COLOUR, rectt)
+            pygame.draw.rect(self.display_surface, PLAYER_COLOUR, (self.body_parts[i], (BLOCK_SIZE, BLOCK_SIZE)))
