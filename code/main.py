@@ -10,6 +10,7 @@ class Game:
         pygame.display.set_caption("Snake")
         self.clock = pygame.time.Clock()
         self.running = True
+        self.font = pygame.font.Font("snake/images/Oxanium-Bold.ttf", 20)
 
         #apple
         self.apple = Apple(self.display_surface)
@@ -19,6 +20,10 @@ class Game:
 
         #text
 
+    def display_score(self):
+        self.score = self.font.render("Score: " + str(len(self.player.body_parts) - 2), True, "White")
+        return self.score
+
     def run(self):
         while self.running:
             dt = self.clock.tick(100) / 1000
@@ -27,6 +32,8 @@ class Game:
                     self.running = False
 
             self.display_surface.fill("Black")
+            self.display_score
+            self.display_surface.blit(self.display_score(), (10, 5))
             self.apple.draw()
             self.player.update()
 
