@@ -21,7 +21,7 @@ class Game:
 
     def run(self):
         while self.running:
-            dt = self.clock.tick() / 1000
+            dt = self.clock.tick(100) / 1000
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
@@ -33,8 +33,6 @@ class Game:
             pygame.display.update()
             if self.player.collide():
                 self.running = False
-
-
 
         pygame.quit()
 
