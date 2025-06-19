@@ -1,7 +1,7 @@
 from settings import *
 
 class Player():
-    def __init__(self, display_surface, apple):
+    def __init__(self, display_surface, apple, start_time):
         self.display_surface = display_surface
         self.apple = apple
         self.body_parts = []
@@ -11,6 +11,7 @@ class Player():
         self.direction = "right"
         self.has_moved = True
         self.apple_pos = self.apple.spawn(self.body_parts)
+        self.start_time = start_time
 
 
     def move(self):
@@ -28,7 +29,7 @@ class Player():
             elif keys[pygame.K_DOWN] and self.direction != "up":
                 self.direction = "down"
                 self.has_moved = False
-        current_time = pygame.time.get_ticks()
+        current_time = pygame.time.get_ticks() - self.start_time
         if current_time // MOVE_TIME >= self.move_count:
             for i in range(len(self.body_parts) - 1, 0, -1):
                 self.body_parts[i] = self.body_parts[i - 1].copy()
